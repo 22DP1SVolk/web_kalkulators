@@ -1,0 +1,112 @@
+/* General styling to match Brat album aesthetic */
+body {
+    background-color: #a6ce39; /* Lime green */
+    font-family: Arial, sans-serif; /* Minimal sans-serif font */
+    color: #000000; /* Black text */
+    text-align: center;
+    padding: 20px;
+    margin: 0;
+}
+
+.calculator {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #a6ce39;
+    border: 2px solid #000000; /* Black border */
+    border-radius: 10px;
+}
+
+h1 {
+    font-size: 2rem;
+    color: #000000;
+    font-weight: normal; /* Match minimal font */
+    margin-bottom: 10px;
+    text-transform: lowercase;
+}
+
+input#display {
+    width: 100%;
+    padding: 0px;
+    font-size: 1.5rem;
+    background: #ffffff;
+    color: #000000;
+    border: 2px solid #000000;
+    border-radius: 5px;
+    text-align: right;
+    height: 50px;   
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+}
+
+button.btn {
+    font-size: 1rem;
+    padding: 15px;
+    border: 2px solid #000000;
+    border-radius: 5px;
+    background: #ffffff;
+    color: #000000;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+button.btn:hover {
+    background: #000000;
+    color: #ffffff;
+}
+
+button.operator {
+    font-weight: bold;
+}
+
+button.equal {
+    background: #000000;
+    color: #ffffff;
+}
+
+button.clear {
+    background: #ff0000; /* Red for clear button */
+    color: #ffffff;
+}
+
+.history {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.history h2 {
+    font-size: 1.2rem;
+    text-transform: lowercase;
+    margin-bottom: 10px;
+}
+
+#history-content {
+    max-height: 100px;
+    overflow-y: auto;
+    background: #ffffff;
+    border: 1px solid #000000;
+    padding: 10px;
+    border-radius: 5px;
+    color: #000000;
+    font-size: 0.9rem;
+}
+
+button.clear-history {
+    margin-top: 10px;
+    background: #ff0000; /* Red for clear history */
+    color: #ffffff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+button.clear-history:hover {
+    background: #b30000; /* Darker red */
+}
