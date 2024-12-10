@@ -1,3 +1,4 @@
+/* General body styling */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f9;
@@ -7,122 +8,235 @@ body {
     height: 100vh;
     margin: 0;
     overflow: hidden;
+    position: relative; /* Make sure content can sit on top */
 }
 
-.calculator-container {
-    position: relative;
-    width: 300px;
-}
-
-.calculator {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-#display {
+/* Video background styling */
+#background-video {
+    position: absolute; /* Position behind all content */
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 50px;
-    margin-bottom: 10px;
-    font-size: 1.5rem;
-    text-align: right;
-    padding: 5px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
+    height: 100%;
+    object-fit: cover; /* Ensure the video covers the screen */
+    z-index: -1; /* Place the video behind content */
+    opacity: 0.9;
 }
 
+/* Calculator container */
+.calculator-container {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    background-color: #2c3b66;
+    border-radius: 20px;
+    padding: 15px;
+    max-width: 800px;
+    width: 100%;
+    /* box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); */
+    position: relative; /* Ensure the content stays above the video */
+}
+
+/* Calculator layout */
+.calculator {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #8d95cd;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Screen styling */
+.screen {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #b0b1d2;
+    color: #2c3b66;
+    padding: 10px 15px;
+    box-sizing: border-box;
+    width: 100%;
+    font-size: 1.5rem;
+}
+
+.screen input {
+    width: 100%;
+    text-align: right;
+    font-size: 2rem;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: #2c3b66;
+    font-family: 'Arial', sans-serif; /* Use a clean, modern font */
+    font-weight: 300; /* Adjust weight for smoother appearance */
+    text-rendering: optimizeLegibility; /* Better rendering on most browsers */
+    -webkit-font-smoothing: antialiased; /* Smooth text for WebKit-based browsers */
+    -moz-osx-font-smoothing: grayscale; /* Smooth text for macOS */
+    letter-spacing: 0.05rem; /* Subtle spacing for a cleaner look */
+}
+
+.history-toggle {
+    background: transparent;
+    color: #2c3b66;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 2.5px 5px; /* Smaller padding to reduce height */
+    border-radius: 10px; /* Slightly rounded corners */
+}
+
+/* Buttons grid */
 .buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
-}
-
-.btn {
-    height: 50px;
-    font-size: 1.2rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: #f1f1f1;
-    transition: background-color 0.2s ease, transform 0.2s ease;
-}
-
-.btn:hover {
-    background-color: #d1d1d1;
-    transform: scale(1.05);
-}
-
-.btn.operator {
-    background-color: #f9a826;
-    color: white;
-}
-
-.btn.operator:hover {
-    background-color: #f78b12;
-}
-
-.btn.clear {
-    background-color: #e63946;
-    color: white;
-}
-
-.btn.clear:hover {
-    background-color: #d62839;
-}
-
-.toggle-history {
-    background-color: #3b82f6;
-    color: white;
-    border: none;
-    padding: 10px;
-    width: 100%;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-top: 10px;
-}
-
-.toggle-history:hover {
-    background-color: #295ccf;
-}
-
-.history {
-    display: none; /* Hidden by default */
-    background: #fff;
     padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    margin-bottom: 10px;
-}
-
-#history-list {
-    list-style-type: none;
-    padding: 0;
-    max-height: 150px;
-    overflow-y: auto;
-}
-
-#history-list li {
-    margin: 5px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #f9f9f9;
-    padding: 5px 10px;
-    border-radius: 5px;
-}
-
-.clear-history {
-    background-color: #e63946;
-    color: white;
-    border: none;
-    padding: 10px;
+    box-sizing: border-box;
     width: 100%;
-    cursor: pointer;
-    border-radius: 5px;
 }
 
-.clear-history:hover {
-    background-color: #d62839;
+button {
+    height: 60px;
+    border-radius: 10px;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    background-color: #54629d;
+    color: white;
+    transition: background-color 0.2s;
+}
+
+button:active {
+    transform: scale(0.9);
+}
+
+button:hover {
+    background-color: #a7b5ec;
+    color: #54629d;
+}
+
+.function-btn {
+    background-color: #2e3756;
+}
+
+.operator-btn {
+    background-color: #4c63ac;
+}
+
+.equal-btn {
+    background-color: #415391;
+    grid-column: span 1;
+}
+
+/* History section */
+/* History section styling */
+.history {
+    flex: 1;
+    background-color: #8d95cd; /* Dark background for contrast */
+    padding: 15px; /* Add padding for spacing */
+    border-radius: 20px; /* Rounded corners */
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.5); /* Subtle shadow effect */
+}
+
+/* Hide history when toggled */
+.history.hidden {
+    display: none;
+}
+
+/* History header */
+.history h2 {
+    font-size: 1.5rem;
+    color: #2c3b66; /* White text */
+    margin: 0;
+    padding-bottom: 10px; /* Add spacing below */
+    border-bottom: 1px solid #2c3b66; /* Separator line */
+}
+
+/* History list */
+#historyList {
+    list-style-type: none; /* Remove bullets */
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+    overflow-y: auto; /* Scrollable if too many items */
+}
+
+/* Individual history items */
+#historyList li {
+    display: flex;
+    justify-content: space-between; /* Align text and button */
+    align-items: center;
+    background-color: #a7b5ec; /* Darker background for items */
+    color: #54629d; /* White text for visibility */
+    margin: 5px 0;
+    padding: 10px 15px; /* Add padding for spacing */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 1rem; /* Adjust font size */
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+}
+
+/* Delete button in history items */
+.delete-history-item {
+    margin-left: 10px; /* Spacing from text */
+    background-color: #4c63ac; /* Red background */
+    color: white; /* White text */
+    border: none;
+    padding: 2.5px 5px; /* Smaller padding to reduce height */
+    border-radius: 10px; /* Slightly rounded corners */
+    font-size: 0.8rem; /* Smaller font size */
+    line-height: 1; /* Line height to keep text compact */
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+    height: auto; /* Let the height adjust naturally */
+}
+
+.delete-history-item:hover {
+    background-color: #364478; /* Darker red on hover */
+}
+
+.delete-history-item:active {
+    transform: scale(0.95); /* Slight scaling effect */
+}
+
+/* Clear history button */
+button.clear-history {
+    background-color: #415391; /* Red background */
+    color: white; /* White text */
+    border: none;
+    padding: 10px 15px; /* Comfortable padding */
+    border-radius: 10px; /* Rounded corners */
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+button.clear-history:hover {
+    background-color: #54629d; /* Darker red on hover */
+}
+
+button.clear-history:active {
+    transform: scale(0.95); /* Slight scaling effect */
+}
+
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .calculator-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .calculator {
+        width: 100%;
+    }
+
+    .history {
+        width: 100%;
+    }
 }

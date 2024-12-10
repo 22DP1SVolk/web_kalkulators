@@ -1,81 +1,95 @@
-const display = document.getElementById("display");
-const historyList = document.getElementById("history-list");
-const historySection = document.getElementById("history-section");
-const toggleHistoryBtn = document.getElementById("toggle-history-btn");
+let history = JSON.parse(localStorage.getItem('history')) || [];
 
-let history = JSON.parse(localStorage.getItem("calcHistory")) || [];
+// Initialize history
+updateHistory();
 
-// Display previous history on page load
-renderHistory();
-
-// Append value to display
+// Append value to the input field
 function appendValue(value) {
-    display.value += value;
+    const inputField = document.getElementById('inputField');
+    if (inputField.value === "0") inputField.value = "";
+    inputField.value += value;
 }
 
-// Clear display
-function clearDisplay() {
-    display.value = "";
+// Clear the input field
+function clearInput() {
+    document.getElementById('inputField').value = "0";
+}
+
+// Delete the last character
+function deleteLast() {
+    const inputField = document.getElementById('inputField');
+    inputField.value = inputField.value.slice(0, -1) || "0";
+}
+
+// Toggle the sign
+function toggleSign() {
+    const inputField = document.getElementById('inputField');
+    inputField.value = inputField.value.startsWith("-") 
+        ? inputField.value.slice(1) 
+        : -inputField.value;
 }
 
 // Perform calculation
 function calculate() {
+    const inputField = document.getElementById('inputField');
     try {
-        const result = eval(display.value);
-        if (result !== undefined) {
-            addToHistory(`${display.value} = ${result}`);
-            display.value = result;
+        const result = eval(inputField.value);
+        if (!isNaN(result)) {
+            history.push(`${inputField.value} = ${result}`);
+            saveHistory();
+            updateHistory();
+            inputField.value = result;
         }
-    } catch (error) {
-        alert("Invalid calculation");
-        display.value = "";
+    } catch {
+        inputField.value = "Error";
     }
 }
 
-// Add result to history
-function addToHistory(entry) {
-    history.push(entry);
-    localStorage.setItem("calcHistory", JSON.stringify(history));
-    renderHistory();
-}
-
-// Render history
-function renderHistory() {
+// Update history UI
+function updateHistory() {
+    const historyList = document.getElementById('historyList');
     historyList.innerHTML = "";
-    history.forEach((item, index) => {
-        const li = document.createElement("li");
-        li.textContent = item;
+    history.forEach((entry, index) => {
+        const listItem = document.createElement('li');
+        listItem.textContent = entry;
 
-        const deleteButton = document.createElement("button");
+        // Add a delete button for each history item
+        const deleteButton = document.createElement('button');
         deleteButton.textContent = "X";
+        deleteButton.classList.add('delete-history-item');
         deleteButton.onclick = () => deleteHistoryItem(index);
 
-        li.appendChild(deleteButton);
-        historyList.appendChild(li);
+        listItem.appendChild(deleteButton);
+        historyList.appendChild(listItem);
     });
+}
+
+
+// Save history to localStorage
+function saveHistory() {
+    localStorage.setItem('history', JSON.stringify(history));
+}
+
+// Clear history
+function clearHistory() {
+    history = [];
+    saveHistory();
+    updateHistory();
 }
 
 // Delete individual history item
 function deleteHistoryItem(index) {
+    // Remove the specific history item
     history.splice(index, 1);
-    localStorage.setItem("calcHistory", JSON.stringify(history));
-    renderHistory();
-}
-
-// Clear all history
-function clearHistory() {
-    history = [];
-    localStorage.removeItem("calcHistory");
-    renderHistory();
+    // Save updated history to localStorage
+    saveHistory();
+    // Re-render the updated history
+    updateHistory();
 }
 
 // Toggle history visibility
 function toggleHistory() {
-    if (historySection.style.display === "none") {
-        historySection.style.display = "block";
-        toggleHistoryBtn.textContent = "Hide History";
-    } else {
-        historySection.style.display = "none";
-        toggleHistoryBtn.textContent = "Show History";
-    }
+    const historyDiv = document.querySelector('.history');
+    historyDiv.classList.toggle('hidden');
 }
+
